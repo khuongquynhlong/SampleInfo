@@ -18,11 +18,11 @@ shinyServer(function(input, output) {
   output$precision_1prop_est <- renderUI({
     if (input$precision_type_1prop_est == 1) {
       textInput(inputId = "d_1prop_est",
-                label = "Sai số tuyệt đối (d)",
+                label = "Absolute precision (d)",
                 value = 0.05)
     } else if (input$precision_type_1prop_est == 2) {
       textInput(inputId = "eps_1prop_est",
-                label = HTML("Sai số tương đối (&epsilon;)"),
+                label = HTML("Relative precision (&epsilon;)"),
                 value = 0.2)
     }
   })
@@ -56,11 +56,11 @@ shinyServer(function(input, output) {
   output$precision_1prop_est_plot <- renderUI({
     if (input$precision_type_1prop_est_plot == 1) {
       textInput(inputId = "d_1prop_est_plot",
-                label = "Sai số tuyệt đối",
+                label = "Absolute precision",
                 value = "0.05 0.1 0.15")
     } else if (input$precision_type_1prop_est_plot == 2) {
       textInput(inputId = "eps_1prop_est_plot",
-                label = "Sai số tương đối",
+                label = "Relative precision",
                 value = "0.1 0.2 0.3")
     }
   })
@@ -103,29 +103,29 @@ shinyServer(function(input, output) {
     if (input$precision_type_1prop_est_plot == 1) {
       plot_ly(df_plot_1prop_est(), x = ~p, y = ~n, color = ~d,
               type = "scatter", mode = "lines+markers",
-              text = paste0("<b>Sai số tuyệt đối:</b> ", df_plot_1prop_est()$d, "<br>",
-                            "<b>Tỷ lệ:</b> ", df_plot_1prop_est()$p, "<br>",
-                            "<b>Cỡ mẫu:</b> ", df_plot_1prop_est()$n),
+              text = paste0("<b>Absolute precision:</b> ", df_plot_1prop_est()$d, "<br>",
+                            "<b>Proportion:</b> ", df_plot_1prop_est()$p, "<br>",
+                            "<b>Sample size:</b> ", df_plot_1prop_est()$n),
               hoverinfo = "text") %>%
         layout(
-          xaxis = list(title = list(text = "<b>Tỷ lệ</b>"),
+          xaxis = list(title = list(text = "<b>Proportion</b>"),
                        zeroline = F),
-          yaxis = list(title = list(text = "<b>Cỡ mẫu</b>")),
-          legend = list(title = list(text = "<b>Sai số tuyệt đối</b>")),
+          yaxis = list(title = list(text = "<b>Sample size</b>")),
+          legend = list(title = list(text = "<b>Absolute precision</b>")),
           font = list(family = "Arial")
         )
     } else if (input$precision_type_1prop_est_plot == 2) {
       plot_ly(df_plot_1prop_est(), x = ~p, y = ~n, color = ~eps,
               type = "scatter", mode = "lines+markers",
-              text = paste0("<b>Sai số tương đối:</b> ", df_plot_1prop_est()$eps, "<br>",
-                            "<b>Tỷ lệ:</b> ", df_plot_1prop_est()$p, "<br>",
-                            "<b>Cỡ mẫu:</b> ", df_plot_1prop_est()$n),
+              text = paste0("<b>Relative precision:</b> ", df_plot_1prop_est()$eps, "<br>",
+                            "<b>Proportion:</b> ", df_plot_1prop_est()$p, "<br>",
+                            "<b>Sample size:</b> ", df_plot_1prop_est()$n),
               hoverinfo = "text") %>%
         layout(
-          xaxis = list(title = list(text = "<b>Tỷ lệ</b>"),
+          xaxis = list(title = list(text = "<b>Proportion</b>"),
                        zeroline = F),
-          yaxis = list(title = list(text = "<b>Cỡ mẫu</b>")),
-          legend = list(title = list(text = "<b>Sai số tương đối</b>")),
+          yaxis = list(title = list(text = "<b>Sample size</b>")),
+          legend = list(title = list(text = "<b>Relative precision</b>")),
           font = list(family = "Arial")
         )
     }
@@ -238,7 +238,7 @@ shinyServer(function(input, output) {
   # Plot 1
   output$diff_range_2props_hypo_plot1 <- renderUI({
     sliderInput(inputId = "diff_range_2props_hypo_plot1",
-                label = "Chọn khoảng khác biệt muốn vẽ",
+                label = "Range of the difference",
                 min = 0, max = 1-as.numeric(input$p1_2props_hypo_plot1), 
                 value = c(0.1, 1-as.numeric(input$p1_2props_hypo_plot1))
     )
@@ -269,12 +269,12 @@ shinyServer(function(input, output) {
             text = paste0("<b>p1:</b> ", df_plot1_2props_hypo()$p1, "<br>",
                           "<b>p2:</b> ", df_plot1_2props_hypo()$p2, "<br>",
                           "<b>Power:</b> ", df_plot1_2props_hypo()$power, "<br>",
-                          "<b>Cỡ mẫu:</b> ", df_plot1_2props_hypo()$n),
+                          "<b>Sample size:</b> ", df_plot1_2props_hypo()$n),
             hoverinfo = "text") %>%
       layout(
-        xaxis = list(title = list(text = "<b>Sự khác biệt</b>"),
+        xaxis = list(title = list(text = "<b>Difference</b>"),
                      zeroline = F),
-        yaxis = list(title = list(text = "<b>Cỡ mẫu</b>")),
+        yaxis = list(title = list(text = "<b>Sample size</b>")),
         legend = list(title = list(text = "<b>Power</b>")),
         font = list(family = "Arial")
       )
@@ -304,10 +304,10 @@ shinyServer(function(input, output) {
             text = paste0("<b>p1:</b> ", df_plot2_2props_hypo()$p1, "<br>",
                           "<b>p2:</b> ", df_plot2_2props_hypo()$p2, "<br>",
                           "<b>Power:</b> ", df_plot2_2props_hypo()$power, "<br>",
-                          "<b>Cỡ mẫu:</b> ", df_plot2_2props_hypo()$n),
+                          "<b>Sample size:</b> ", df_plot2_2props_hypo()$n),
             hoverinfo = "text") %>%
       layout(
-        xaxis = list(title = list(text = "<b>Cỡ mẫu</b>"),
+        xaxis = list(title = list(text = "<b>Sample size</b>"),
                      zeroline = F),
         yaxis = list(title = list(text = "<b>Power</b>")),
         font = list(family = "Arial")
@@ -365,15 +365,15 @@ shinyServer(function(input, output) {
   output$precision_1mean_est <- renderUI({
     if (input$precision_type_1mean_est == 1) {
       textInput(inputId = "d_1mean_est",
-                label = "Sai số tuyệt đối (d)",
+                label = "Absolute precision (d)",
                 value = 0.1)
     } else if (input$precision_type_1mean_est == 2) {
       list(
         textInput(inputId = "eps_1mean_est",
-                  label = HTML("Sai số tương đối (&epsilon;)"),
+                  label = HTML("Relative precision (&epsilon;)"),
                   value = 0.05),
         textInput(inputId = "mean_1mean_est", 
-                  label = HTML("Trung bình quần thể (&mu;)"), 
+                  label = HTML("Population mean (&mu;)"), 
                   value = 10)
       )
     }
@@ -656,7 +656,7 @@ shinyServer(function(input, output) {
   output$n_simple_random <- renderValueBox({
     valueBox(
       value = n_simple_random(),
-      subtitle = "Cỡ mẫu",
+      subtitle = "Sample size",
       icon = icon("capsules"),
       color = "green",
     )
