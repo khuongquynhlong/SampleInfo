@@ -64,6 +64,11 @@ sidebar <- dashboardSidebar(
             "Multivariable regression", 
             icon = icon("registered"), startExpanded = FALSE,
             tabName = "samregress"
+        ),
+        menuItem(
+            "References", 
+            icon = icon("address-book"), startExpanded = FALSE,
+            tabName = "reference"
         )
     )
 )
@@ -125,7 +130,7 @@ body <- dashboardBody(
                     )
                 ),
                 tabPanel(
-                    title = "Biểu đồ",
+                    title = "Graph",
                     fluidRow(
                         box(width = 4,
                             radioButtons(inputId = "precision_type_1prop_est_plot", 
@@ -136,24 +141,24 @@ body <- dashboardBody(
                                       label = HTML("Alpha (&alpha;)"),
                                       value = 0.05),
                             sliderInput(inputId = "p_range_1prop_est_plot",
-                                        label = "Chọn khoảng tỷ lệ muốn vẽ",
+                                        label = "Proportion interval",
                                         min = 0, max = 1, value = c(0.1, 0.99)),
                             textInput(inputId = "p_by_1prop_est_plot",
-                                      label = "Khoảng cách tỷ lệ",
+                                      label = "Step",
                                       value = 0.01),
                             uiOutput(outputId = "precision_1prop_est_plot"),
-                            helpText("Có thể nhập nhiều sai số, cách nhau bằng dấu khoảng trắng (space)")
+                            helpText("Multiple errors are available, separated by space")
                         ),
                         tabBox(
                             width = 8, side = "left",
                             tabPanel(
-                                title = "Biểu đồ",
+                                title = "Graph",
                                 fluidPage(
                                     plotlyOutput(outputId = "plot_1prop_est")
                                 )
                             ),
                             tabPanel(
-                                title = "Bảng",
+                                title = "Table",
                                 fluidPage(
                                     dataTableOutput(outputId = "table_1prop_est")
                                 )
@@ -182,13 +187,13 @@ body <- dashboardBody(
                                                   label = HTML("Alpha (&alpha;)"),
                                                   value = 0.05),
                                         textInput(inputId = "p0_1prop_hypo", 
-                                                  label = HTML("Tỷ lệ quần thể (P<sub>0</sub>)"), 
+                                                  label = HTML("Population proportion (P<sub>0</sub>)"), 
                                                   value = 0.30),
                                         textInput(inputId = "power_1prop_hypo",
                                                   label = HTML("Power (1-&beta;)"),
                                                   value = 0.8),
                                         textInput(inputId = "pa_1prop_hypo",
-                                                  label = HTML("Tỷ lệ ước tính (P<sub>a</sub>)"),
+                                                  label = HTML("Proposed proportion (P<sub>a</sub>)"),
                                                   value = 0.20)
                                     ),
                                     box(
@@ -210,10 +215,10 @@ body <- dashboardBody(
                                 fluidRow(
                                     box(
                                         textInput(inputId = "p0_1prop_hypo_power", 
-                                                  label = HTML("Tỷ lệ quần thể (P<sub>0</sub>)"), 
+                                                  label = HTML("Population proportion (P<sub>0</sub>)"), 
                                                   value = 0.30),
                                         textInput(inputId = "pa_1prop_hypo_power",
-                                                  label = HTML("Tỷ lệ ước tính (P<sub>a</sub>)"),
+                                                  label = HTML("Proposed proportion (P<sub>a</sub>)"),
                                                   value = 0.20)
                                     ),
                                     box(
@@ -255,10 +260,10 @@ body <- dashboardBody(
                                           label = HTML("Alpha (&alpha;)"),
                                           value = 0.05),
                                 textInput(inputId = "p1_2props_est", 
-                                          label = HTML("Tỷ lệ nhóm 1 (P<sub>1</sub>)"), 
+                                          label = HTML("Proposed proportion 1 (P<sub>1</sub>)"), 
                                           value = 0.2),
                                 textInput(inputId = "p2_2props_est", 
-                                          label = HTML("Tỷ lệ nhóm 2 (P<sub>2</sub>)"), 
+                                          label = HTML("Proposed proportion 2 (P<sub>2</sub>)"), 
                                           value = 0.5),
                                 textInput(inputId = "d_2props_est",
                                           label = "Absolute precision (d)",
@@ -307,13 +312,13 @@ body <- dashboardBody(
                                                   label = HTML("Power (1-&beta;)"),
                                                   value = 0.8),
                                         textInput(inputId = "p1_2props_hypo", 
-                                                  label = HTML("Tỷ lệ nhóm 1 (P<sub>1</sub>)"), 
+                                                  label = HTML("Proposed proportion 1 (P<sub>1</sub>)"), 
                                                   value = 0.60),
                                         textInput(inputId = "p2_2props_hypo",
-                                                  label = HTML("Tỷ lệ nhóm 2 (P<sub>2</sub>)"),
+                                                  label = HTML("Proposed proportion 2 (P<sub>2</sub>)"),
                                                   value = 0.50),
                                         numericInput(inputId = "k_2props_hypo",
-                                                     label = "Tỷ số 2 nhóm",
+                                                     label = "Group ratio",
                                                      value = 1)
                                     ),
                                     box(
@@ -325,11 +330,11 @@ body <- dashboardBody(
                                                      value = 1)
                                     ),
                                     box(
-                                        p(HTML("<center><b>Sample size nhóm 1</b></center>")),
+                                        p(HTML("<center><b>Sample size group 1</b></center>")),
                                         p(h1(HTML(paste0("<b>", textOutput(outputId = "n1_2props_hypo"), "</b>")), align = "center"))
                                     ),
                                     box(
-                                        p(HTML("<center><b>Sample size nhóm 2</b></center>")),
+                                        p(HTML("<center><b>Sample size group 2</b></center>")),
                                         p(h1(HTML(paste0("<b>", textOutput(outputId = "n2_2props_hypo"), "</b>")), align = "center"))
                                     )
                                 )
@@ -340,10 +345,10 @@ body <- dashboardBody(
                                     box(
                                         
                                         textInput(inputId = "p1_2props_hypo_power", 
-                                                  label = HTML("Tỷ lệ nhóm 1 (P<sub>1</sub>)"), 
+                                                  label = HTML("Proposed proportion 1 (P<sub>1</sub>)"), 
                                                   value = 0.60),
                                         textInput(inputId = "p2_2props_hypo_power",
-                                                  label = HTML("Tỷ lệ nhóm 2 (P<sub>2</sub>)"),
+                                                  label = HTML("Proposed proportion 2 (P<sub>2</sub>)"),
                                                   value = 0.50)
                                     ),
                                     box(
@@ -365,18 +370,18 @@ body <- dashboardBody(
                         box(title = "Formula", width = 6,
                             withMathJax(),
                             p("$$n=\\frac{ \\left\\{ Z_{1-\\frac{\\alpha}{2}}\\sqrt{2\\overline{P}(1-\\overline{P})}+Z_{1-\\beta}\\sqrt{P_1(1-P_1)+P_2(1-P_2)}\\right\\}^2}{(P_1-P_2)^2}$$"),
-                            helpText("Formula này giống với Formula kiểm định giả thuyết cho nguy cơ tương đối (nghiên cứu thuần tập)")
+                            helpText("")
                         )
                     )
                 ),
                 tabPanel(
-                    title = "Biểu đồ",
+                    title = "Graph",
                     fluidRow(
-                        box(title = "Tham số", width = 4,
+                        box(title = "Parameters", width = 4,
                             radioButtons(inputId = "plot_type_2props_hypo_plot", 
-                                         label = "Chọn loại biểu đồ", 
-                                         choices = c("Biểu đồ Sample size theo sự khác biệt"= 1,
-                                                     "Biểu đồ power theo Sample size" = 2)),
+                                         label = "Graph type", 
+                                         choices = c("Sample size by difference"= 1,
+                                                     "Power by sample size" = 2)),
                             conditionalPanel(
                                 condition = "input.plot_type_2props_hypo_plot == 1",
                                 textInput(inputId = "p1_2props_hypo_plot1",
@@ -384,12 +389,12 @@ body <- dashboardBody(
                                           value = 0.2),
                                 uiOutput(outputId = "diff_range_2props_hypo_plot1"),
                                 textInput(inputId = "diff_by_2props_hypo_plot1",
-                                          label = "Khoảng cách khác biệt",
+                                          label = "Step",
                                           value = 0.05),
                                 textInput(inputId = "power_2props_hypo_plot1",
                                           label = HTML("Power (1-&beta;)"),
                                           value = "0.7 0.8 0.9"),
-                                helpText("Có thể nhập nhiều power, cách nhau bằng dấu khoảng trắng (space)"),
+                                helpText("Multiple powers are available, separated by space"),
                                 textInput(inputId = "alpha_2props_hypo_plot1",
                                           label = HTML("Alpha (&alpha;)"),
                                           value = 0.05)
@@ -406,14 +411,14 @@ body <- dashboardBody(
                                           label = HTML("Alpha (&alpha;)"),
                                           value = 0.05),
                                 sliderInput(inputId = "power_range_2props_hypo_plot2",
-                                            label = "Chọn khoảng power muốn vẽ",
+                                            label = "Power interval",
                                             min = 0, max = 1, value = c(0.5, 0.95)),
                                 textInput(inputId = "power_by_2props_hypo_plot2",
-                                          label = "Khoảng cách power",
+                                          label = "Step",
                                           value = 0.05)
                             ),
                         ),
-                        box(title = "Biểu đồ", width = 8,
+                        box(title = "Graph", width = 8,
                             conditionalPanel(
                                 condition = "input.plot_type_2props_hypo_plot == 1",
                                 plotlyOutput(outputId = "plot1_2props_hypo")
@@ -449,13 +454,13 @@ body <- dashboardBody(
                                                   label = HTML("Power (1-&beta;)"),
                                                   value = 0.8),
                                         textInput(inputId = "p1_2props_hypo_small", 
-                                                  label = HTML("Tỷ lệ nhóm 1 (P<sub>1</sub>)"), 
+                                                  label = HTML("Proposed proportion 1 (P<sub>1</sub>)"), 
                                                   value = 0.001),
                                         textInput(inputId = "p2_2props_hypo_small",
-                                                  label = HTML("Tỷ lệ nhóm 2 (P<sub>2</sub>)"),
+                                                  label = HTML("Proposed proportion 2 (P<sub>2</sub>)"),
                                                   value = 0.010),
                                         numericInput(inputId = "k_2props_hypo_small",
-                                                     label = "Tỷ số 2 nhóm",
+                                                     label = "Group ratio",
                                                      value = 1),
                                     ),
                                     box(
@@ -482,10 +487,10 @@ body <- dashboardBody(
                                     box(
                                         
                                         textInput(inputId = "p1_2props_hypo_small_power", 
-                                                  label = HTML("Tỷ lệ nhóm 1 (P<sub>1</sub>)"), 
+                                                  label = HTML("Proportion group 1 (P<sub>1</sub>)"), 
                                                   value = 0.001),
                                         textInput(inputId = "p2_2props_hypo_small_power",
-                                                  label = HTML("Tỷ lệ nhóm 2 (P<sub>2</sub>)"),
+                                                  label = HTML("Proportion group 2 (P<sub>2</sub>)"),
                                                   value = 0.010)
                                     ),
                                     box(
@@ -528,7 +533,7 @@ body <- dashboardBody(
                                           label = HTML("Alpha (&alpha;)"),
                                           value = 0.05),
                                 textInput(inputId = "sd_1mean_est", 
-                                          label = HTML("Độ lệch chuẩn (&sigma;)"), 
+                                          label = HTML("Standard deviation (&sigma;)"), 
                                           value = 2),
                                 radioButtons(inputId = "precision_type_1mean_est", 
                                              label = "Precision", 
@@ -581,7 +586,7 @@ body <- dashboardBody(
                                 fluidRow(
                                     box(
                                         textInput(inputId = "sd_1mean_hypo",
-                                                  label = HTML("Độ lệch chuẩn quần thể (&sigma;)"),
+                                                  label = HTML("Population Standard deviation (&sigma;)"),
                                                   value = 20),
                                         textInput(inputId = "alpha_1mean_hypo",
                                                   label = HTML("Alpha (&alpha;)"),
@@ -590,10 +595,10 @@ body <- dashboardBody(
                                                   label = HTML("Power (1-&beta;)"),
                                                   value = 0.8),
                                         textInput(inputId = "m0_1mean_hypo", 
-                                                  label = HTML("Trung bình quần thể (&mu;<sub>0</sub>)"), 
+                                                  label = HTML("Population mean (&mu;<sub>0</sub>)"), 
                                                   value = 90),
                                         textInput(inputId = "ma_1mean_hypo", 
-                                                  label = HTML("Trung bình nhóm so sánh (&mu;<sub>a</sub>)"), 
+                                                  label = HTML("Mean of comparison group (&mu;<sub>a</sub>)"), 
                                                   value = 85)
                                     ),
                                     box(
@@ -615,13 +620,13 @@ body <- dashboardBody(
                                 fluidRow(
                                     box(
                                         textInput(inputId = "m0_1mean_hypo_power", 
-                                                  label = HTML("Trung bình quần thể (&mu;<sub>0</sub>)"), 
+                                                  label = HTML("Population mean (&mu;<sub>0</sub>)"), 
                                                   value = 90),
                                         textInput(inputId = "ma_1mean_hypo_power", 
-                                                  label = HTML("Trung bình nhóm so sánh (&mu;<sub>a</sub>)"), 
+                                                  label = HTML("Mean of comparison group (&mu;<sub>a</sub>)"), 
                                                   value = 85),
                                         textInput(inputId = "sd_1mean_hypo_power",
-                                                  label = HTML("Độ lệch chuẩn quần thể (&sigma;)"),
+                                                  label = HTML("Population Standard deviation (&sigma;)"),
                                                   value = 20)
                                     ),
                                     box(
@@ -662,7 +667,7 @@ body <- dashboardBody(
                                           label = HTML("Alpha (&alpha;)"),
                                           value = 0.05),
                                 textInput(inputId = "sd_2means_est", 
-                                          label = HTML("Độ lệch chuẩn quần thể (&sigma;)"), 
+                                          label = HTML("Population Standard deviation (&sigma;)"), 
                                           value = 0.75),
                                 textInput(inputId = "d_2means_est", 
                                           label = "Absolute precision (d)", 
@@ -705,10 +710,10 @@ body <- dashboardBody(
                                 fluidRow(
                                     box(
                                         textInput(inputId = "sd1_2means_hypo",
-                                                  label = HTML("Độ lệch chuẩn nhóm 1 (&sigma;<sub>1</sub>)"),
+                                                  label = HTML("Standard deviation group 1 (&sigma;<sub>1</sub>)"),
                                                   value = 20),
                                         textInput(inputId = "sd2_2means_hypo",
-                                                  label = HTML("Độ lệch chuẩn nhóm 2 (&sigma;<sub>2</sub>)"),
+                                                  label = HTML("Standard deviation group 2 (&sigma;<sub>2</sub>)"),
                                                   value = 15),
                                         textInput(inputId = "alpha_2means_hypo",
                                                   label = HTML("Alpha (&alpha;)"),
@@ -717,10 +722,10 @@ body <- dashboardBody(
                                                   label = HTML("Power (1-&beta;)"),
                                                   value = 0.8),
                                         textInput(inputId = "m1_2means_hypo", 
-                                                  label = HTML("Trung bình nhóm 1 (&mu;<sub>1</sub>)"), 
+                                                  label = HTML("Mean group 1 (&mu;<sub>1</sub>)"), 
                                                   value = 100),
                                         textInput(inputId = "m2_2means_hypo", 
-                                                  label = HTML("Trung bình nhóm 2 (&mu;<sub>2</sub>)"), 
+                                                  label = HTML("Mean group nhóm 2 (&mu;<sub>2</sub>)"), 
                                                   value = 95),
                                         numericInput(inputId = "k_2means_hypo",
                                                      label = "Tỷ số 2 nhóm",
@@ -750,19 +755,19 @@ body <- dashboardBody(
                                     box(
                                         
                                         textInput(inputId = "m1_2means_hypo_power", 
-                                                  label = HTML("Trung bình nhóm 1 (&mu;<sub>1</sub>)"), 
+                                                  label = HTML("Mean group 1 (&mu;<sub>1</sub>)"), 
                                                   value = 100),
                                         textInput(inputId = "sd1_2means_hypo_power",
-                                                  label = HTML("Độ lệch chuẩn nhóm 1 (&sigma;<sub>1</sub>)"),
+                                                  label = HTML("Standard deviation group 1 (&sigma;<sub>1</sub>)"),
                                                   value = 20)
                                     ),
                                     box(
                                         
                                         textInput(inputId = "m2_2means_hypo_power", 
-                                                  label = HTML("Trung bình nhóm 2 (&mu;<sub>2</sub>)"), 
+                                                  label = HTML("Mean group 2 (&mu;<sub>2</sub>)"), 
                                                   value = 95),
                                         textInput(inputId = "sd2_2means_hypo_power",
-                                                  label = HTML("Độ lệch chuẩn nhóm 2 (&sigma;<sub>2</sub>)"),
+                                                  label = HTML("Standard deviation group 2 (&sigma;<sub>2</sub>)"),
                                                   value = 15)
                                     ),
                                     box(
@@ -809,10 +814,10 @@ body <- dashboardBody(
                                           label = HTML("Epsilon (&epsilon;)"),
                                           value = 0.5),
                                 textInput(inputId = "p1_cohort_est", 
-                                          label = HTML("Tỷ lệ phơi nhiễm trong nhóm bệnh (P<sub>1</sub>)"), 
+                                          label = HTML("Probability of disease among exposed (P<sub>1</sub>)"), 
                                           value = 0.4),
                                 textInput(inputId = "p2_cohort_est", 
-                                          label = HTML("Tỷ lệ phơi nhiễm trong nhóm chứng (P<sub>2</sub>)"), 
+                                          label = HTML("Probability of disease among unexposed (P<sub>2</sub>)"), 
                                           value = 0.2)
                             ),
                             box(
@@ -857,10 +862,10 @@ body <- dashboardBody(
                                                   label = HTML("Power (1-&beta;)"),
                                                   value = 0.8),
                                         textInput(inputId = "p1_cohort_hypo", 
-                                                  label = HTML("Tỷ lệ phơi nhiễm trong nhóm bệnh (P<sub>1</sub>)"), 
+                                                  label = HTML("Probability of disease among exposed (P<sub>1</sub>)"), 
                                                   value = 0.175),
                                         textInput(inputId = "p2_cohort_hypo", 
-                                                  label = HTML("Tỷ lệ phơi nhiễm trong nhóm chứng (P<sub>2</sub>)"), 
+                                                  label = HTML("Probability of disease among unexposed (P<sub>2</sub>)"), 
                                                   value = 0.35)
                                     ),
                                     box(
@@ -930,10 +935,10 @@ body <- dashboardBody(
                                           label = HTML("Relative precision (&epsilon;)"),
                                           value = 0.5),
                                 textInput(inputId = "p1_case_est", 
-                                          label = HTML("Tỷ lệ phơi nhiễm trong nhóm bệnh (P<sub>1</sub>)"), 
+                                          label = HTML("Probability of exposure given disease (P<sub>1</sub>)"), 
                                           value = 0.4),
                                 textInput(inputId = "p2_case_est", 
-                                          label = HTML("Tỷ lệ phơi nhiễm trong nhóm chứng (P<sub>2</sub>)"), 
+                                          label = HTML("Probability of exposure given no disease (P<sub>2</sub>)"), 
                                           value = 0.2)
                             ),
                             box(
@@ -974,15 +979,15 @@ body <- dashboardBody(
                                         textInput(inputId = "alpha_case_hypo",
                                                   label = HTML("Alpha (&alpha;)"),
                                                   value = 0.05),
-                                        textInput(inputId = "p2_case_hypo", 
-                                                  label = HTML("Tỷ lệ phơi nhiễm trong nhóm chứng (P<sub>2</sub>)"), 
-                                                  value = 0.35),
                                         textInput(inputId = "power_case_hypo",
                                                   label = HTML("Power (1-&beta;)"),
                                                   value = 0.8),
                                         textInput(inputId = "p1_case_hypo", 
-                                                  label = HTML("Tỷ lệ phơi nhiễm trong nhóm bệnh (P<sub>1</sub>)"), 
-                                                  value = 0.175)
+                                                  label = HTML("Probability of exposure given disease (P<sub>1</sub>)"), 
+                                                  value = 0.175),
+                                        textInput(inputId = "p2_case_hypo", 
+                                                  label = HTML("Probability of exposure given no disease (P<sub>2</sub>)"), 
+                                                  value = 0.35)
                                     ),
                                     box(
                                         textInput(inputId = "nonrep_case_hypo",
@@ -1003,10 +1008,10 @@ body <- dashboardBody(
                                 fluidRow(
                                     box(
                                         textInput(inputId = "p1_case_hypo_power", 
-                                                  label = HTML("Tỷ lệ phơi nhiễm trong nhóm bệnh (P<sub>1</sub>)"), 
+                                                  label = HTML("Probability of exposure given disease (P<sub>1</sub>)"), 
                                                   value = 0.175),
                                         textInput(inputId = "p2_case_hypo_power", 
-                                                  label = HTML("Tỷ lệ phơi nhiễm trong nhóm chứng (P<sub>2</sub>)"), 
+                                                  label = HTML("Probability of exposure given no disease (P<sub>2</sub>)"), 
                                                   value = 0.35),
                                     ),
                                     box(
@@ -1083,10 +1088,10 @@ body <- dashboardBody(
                 tabPanel(
                     title = "Input number",
                     fluidRow(
-                        box(title = "Tham số", width = 6,
+                        box(title = "Parameter", width = 6,
                             box(
                                 textInput(inputId = "r_corr", 
-                                          label = "Hệ số tương quan (r)", 
+                                          label = "Correlation coefficient (r)", 
                                           value = 0.3),
                                 textInput(inputId = "alpha_corr",
                                           label = HTML("Alpha (&alpha;)"),
@@ -1101,7 +1106,7 @@ body <- dashboardBody(
                             )
                         ),
                         box(title = "Formula", width = 6,
-                            p("Đang cập nhật")
+                            p("Updating")
                         )
                     )
                 )
@@ -1125,13 +1130,13 @@ body <- dashboardBody(
                                           label = HTML("Alpha (&alpha;)"), 
                                           value = 0.05),
                                 textInput(inputId = "sen_sens",
-                                          label = HTML("Độ nhạy ước tính (Sens)"),
+                                          label = HTML("Estimated sensitivity (Sens)"),
                                           value = 0.8),
                                 textInput(inputId = "error_sens",
                                           label = HTML("Absolute precision (d)"),
                                           value = 0.05),
                                 textInput(inputId = "p_sens",
-                                          label = HTML("Tỷ lệ bệnh hiện hành (P)"),
+                                          label = HTML("Prevalence of disease (P)"),
                                           value = 0.2)
                             ),
                             box(
@@ -1163,13 +1168,13 @@ body <- dashboardBody(
                                           label = HTML("Alpha (&alpha;)"), 
                                           value = 0.05),
                                 textInput(inputId = "spec_spec",
-                                          label = HTML("Độ đặc hiệu ước tính (Spec)"),
+                                          label = HTML("Estimated specificity (Spec)"),
                                           value = 0.8),
                                 textInput(inputId = "error_spec",
                                           label = HTML("Absolute precision (d)"),
                                           value = 0.05),
                                 textInput(inputId = "p_spec",
-                                          label = HTML("Tỷ lệ bệnh hiện hành (P)"),
+                                          label = HTML("Prevalence of disease (P)"),
                                           value = 0.2)
                             ),
                             box(
@@ -1195,8 +1200,8 @@ body <- dashboardBody(
                 tabPanel(
                     title = "Input number",
                     fluidRow(
-                        box(width = 6, side = "left", title = "Đang cập nhật"),
-                        box(title = "Đang cập nhật", width = 6)
+                        box(width = 6, side = "left", title = "Updating"),
+                        box(title = "Updating", width = 6)
                     )
                 )
             )
@@ -1212,8 +1217,26 @@ body <- dashboardBody(
                 tabPanel(
                     title = "Input number",
                     fluidRow(
-                        box(width = 6, side = "left", title = "Đang cập nhật"),
-                        box(title = "Đang cập nhật", width = 6)
+                        box(width = 6, side = "left", title = "Updating"),
+                        box(title = "Updating", width = 6)
+                    )
+                )
+            )
+        ), 
+        
+        tabItem(
+            tabName = "reference",
+            tabsetPanel(
+                type = "tabs",
+                tabPanel(
+                    title = "References",
+                    fluidRow(
+                        box(width = 12,
+                            p(HTML("<left> <p style='font-size:15px;color:darkblue;'> 1. Lemeshow S, Hosmer D, Klar J, Lwanga S (1990). Adequacy of Sample Size in Health Studies, World Health Organization, John Wiley & Sons Ltd.  </left>")),
+                            p(HTML("<left> <p style='font-size:15px;color:darkblue;'> 2. Lwanga S, Lemeshow S, World Health Organization. Sample size determination in health studies : a practical manual. Geneva: World Health Organization; 1991. </left>")),
+                            p(HTML("<left> <p style='font-size:15px;color:darkblue;'> 3. Julious SA (2009), Sample sizes for clinical trials, CRC Press, Boca Raton. </left>")),
+                            p(HTML("<left> <p style='font-size:15px;color:darkblue;'> 4. Shein-Chung, Shao J, Wang H (2008). Sample size calculations in clinical research, second edition, Chapman & Hall/CRC, Taylor & Francis Group. </left>"))
+                            )
                     )
                 )
             )
@@ -1228,17 +1251,17 @@ body <- dashboardBody(
                     #background = "#222d32",color = "white",
                     #p(HTML('<left><img src="Logo1.png" style="width: 10vw; min-width: 250x;"></left>')),
                     #tags$br(),
-                    p(HTML("<center> <b> <p style='font-size:35px;color:darkblue;'> PHẦN MỀM ƯỚC LƯỢNG CỠ MẪU </sup> </p> </b> </center>")),
+                    p(HTML("<center> <b> <p style='font-size:35px;color:darkblue;'> Sample Size Calculator in Health Science Research </sup> </p> </b> </center>")),
                     # p(HTML("<center> <b> <p style='font-size:28px;color:white;'> Dành cho các nghiên cứu khoa học sức khỏe </p> </b> </center>")),
                     # p(HTML("<left> <i> <p style='font-size:15px;color:darkblue;'>  (Phiên bản v1.0-2020) </p> </i> </left>")),
-                    p(HTML("<center> <b> <p style='font-size:15px;color:darkblue;'> <i>  Tác giả: </b>Khương Quỳnh Long, Ong Phúc Thịnh, Hoàng Văn Minh </i> </p>  </center>")),
+                    p(HTML("<center> <b> <p style='font-size:15px;color:darkblue;'> <i>  Authors: </b>Khuong Quynh Long, Ong Phuc Thinh, Hoang Van Minh </i> </p>  </center>")),
                     tags$br(),
                     p(HTML('<center><img src="Sampling.gif" style="width: 30w; min-width: 1000x;"></center>')),
                     # p(HTML('<left><img src="Sample1.jpg" style="width: 30vw; min-width: 250x;"></left>')),
                     tags$br(),
                     tags$br(),
                     tags$br(),
-                    p(HTML("<i> <p style='font-size:12px;color:darkblue;text-align:left'> (Phần mềm đang trong quá trình xây dựng và thử nghiệm, mọi góp ý xin vui lòng liên hệ nhóm tác giả; <u> Email: kql@huph.edu.vn</u>) </p> </i>")),
+                    p(HTML("<i> <p style='font-size:12px;color:darkblue;text-align:left'> (This website is being developed. For more information, please contact Khuong Quynh Long at <u> kql@huph.edu.vn</u>) </p> </i>")),
                     # p(HTML("<i> <p style='font-size:10px;color:darkblue;text-align:right'> @Phần mềm được viết bằng ngôn ngữ R với ứng dụng Shiny    </p> </i>"))
                     )
                 )
@@ -1246,9 +1269,9 @@ body <- dashboardBody(
         )
     )
 
-dashboardPage(title = "Phần mềm ước lượng cỡ mẫu ",
+dashboardPage(title = "Sample Size Calculator",
     dashboardHeader(
-        title = span(icon("dna"), HTML("Ước lượng cỡ mẫu")),
+        title = span(icon("dna"), HTML("Sample Size Calculator")),
         tags$li(
             a(icon("question-circle"),
               strong("Help"),
