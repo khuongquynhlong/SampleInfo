@@ -725,10 +725,10 @@ body <- dashboardBody(
                                                   label = HTML("Mean group 1 (&mu;<sub>1</sub>)"), 
                                                   value = 100),
                                         textInput(inputId = "m2_2means_hypo", 
-                                                  label = HTML("Mean group nhóm 2 (&mu;<sub>2</sub>)"), 
+                                                  label = HTML("Mean group 2 (&mu;<sub>2</sub>)"), 
                                                   value = 95),
                                         numericInput(inputId = "k_2means_hypo",
-                                                     label = "Tỷ số 2 nhóm",
+                                                     label = "Group ratio",
                                                      value = 1)
                                     ),
                                     box(
@@ -740,11 +740,11 @@ body <- dashboardBody(
                                                      value = 1)
                                     ),
                                     box(
-                                        p(HTML("<center><b>Sample size nhóm 1</b></center>")),
+                                        p(HTML("<center><b>Sample size group 1</b></center>")),
                                         p(h1(HTML(paste0("<b>", textOutput(outputId = "n1_2means_hypo"), "</b>")), align = "center"))
                                     ),
                                     box(
-                                        p(HTML("<center><b>Sample size nhóm 2</b></center>")),
+                                        p(HTML("<center><b>Sample size group 2</b></center>")),
                                         p(h1(HTML(paste0("<b>", textOutput(outputId = "n2_2means_hypo"), "</b>")), align = "center"))
                                     )
                                 )
